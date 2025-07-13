@@ -20,7 +20,7 @@ spec:
         - name: ecr-cred-secret # This must match the secret name created later
       containers:
         - name: my-fresh-app-container
-          image: /my-fresh-app:6128bfb04ff34311b2841608c6af15ec35d095e9
+          image: 343218191685.dkr.ecr.us-east-1.amazonaws.com/my-fresh-app:94f2f94db540b271b75fbd0662f43ffc51d867e5
           ports:
             - containerPort: 80 # Nginx serves on port 80
           resources:
