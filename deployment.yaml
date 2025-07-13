@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-fresh-app-deployment
+  namespace: my-fresh-app # Define your app's namespace
+  labels:
+    app: my-fresh-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-fresh-app
+  template:
+    metadata:
+      labels:
+        app: my-fresh-app
+    spec:
+      # This secret allows Kubernetes to pull from private ECR
+      imagePullSecrets:
+        - name: ecr-cred-secret # This must match the secret name created later
+      containers:
+        - name: my-fresh-app-container
+          image: 343218191685.dkr.ecr.us-east-1.amazonaws.com/my-fresh-app:8fc1acd18ce1689bc735aefe494631f16b869fa2 # <<< UPDATE THIS!
+          ports:
+            - containerPort: 80 # Nginx serves on port 80
+          resources:
+            requests: # Request minimal resources to ensure scheduling
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "100m"
